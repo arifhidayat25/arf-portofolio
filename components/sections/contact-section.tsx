@@ -235,7 +235,7 @@ export function ContactSection({ onNext }: ContactSectionProps) {
                 <ChatInput
                   placeholder={getPlaceholder()}
                   onSubmit={handleInputSubmit}
-                  disabled={currentInput === 'done'}
+                  disabled={false}
                 />
               </motion.div>
             ) : (

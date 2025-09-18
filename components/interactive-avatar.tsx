@@ -57,9 +57,10 @@ export function InteractiveAvatar({ mousePosition }: InteractiveAvatarProps) {
             scale: [1, 1.02, 1],
           }}
           transition={{ 
-            scale: { duration: 3, repeat: Infinity, ease: "easeInOut" },
-            hover: { type: "spring", stiffness: 300 }
-          }}
+    scale: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+    type: "spring",
+    stiffness: 300
+  }}
         >
           {/* Placeholder Avatar - Replace with actual image */}
           <div className="w-full h-full bg-gradient-to-br from-violet-500 via-blue-500 to-teal-500 flex items-center justify-center">
