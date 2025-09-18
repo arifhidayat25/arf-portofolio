@@ -7,8 +7,8 @@ import { CustomCursor } from '@/components/custom-cursor';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Portfolio - Creative Developer',
-  description: 'Immersive portfolio experience with unique animations',
+  title: 'Portfolio - ARFID ',
+  description: 'Portfolio pribadi Arif Fadilah - Pengembang Web dan Mobile',
 };
 
 export default function RootLayout({
