@@ -21,8 +21,33 @@ const projects = [
     live: 'https://desa-website-lake.vercel.app/',
     category: 'Full Stack',
   },
+
   {
     id: 2,
+    title: 'Muslim Lifestyle PWA',
+    description: 'Sebuah Progressive Web App (PWA) yang dirancang untuk membantu aktivitas ibadah harian umat Muslim. Aplikasi ini kaya fitur, modern, dan dapat diinstal di perangkat Anda untuk akses offline.',
+    fullDescription: 'PWA Ibadah Harian Muslim adalah aplikasi web progresif (Progressive Web App) yang dirancang khusus untuk membantu umat Muslim dalam menjalankan ibadah sehari-hari dengan lebih mudah, teratur, dan nyaman. Dibangun dengan teknologi modern yang mendukung akses offline, instalasi langsung di perangkat, dan tampilan responsif, aplikasi ini menghadirkan pengalaman seperti aplikasi mobile tanpa perlu mengunduh dari Play Store atau App Store.',
+    image: 'https://s0.wordpress.com/mshots/v1/https%3A%2F%2Fdaily-muslim.netlify.app%2F?w=1280&h=720',
+    technologies: ['React', 'Framer Motion', 'Tailwind'],
+    github: 'https://github.com',
+    live: 'https://daily-muslim.netlify.app/',
+    category: 'Frontend',
+  },
+
+   {
+    id: 3,
+    title: 'Web Puisi',
+    description: 'Website puisi interaktif dengan visualisasi data dan fitur komunitas.',
+    fullDescription: 'Situs web puisi interaktif yang menggabungkan visualisasi data dinamis dan fitur komunitas untuk penulis dan pembaca. Dibangun dengan React dan D3.js, menampilkan pembuat puisi kolaboratif, analitik pembaca, dan integrasi media sosial.',
+    image: 'https://s0.wordpress.com/mshots/v1/https%3A%2F%2Fweb-puisi-react.vercel.app%2F?w=1280&h=720es.pexels.com/photos/590020/pexels-photo-590020.jpg?auto=compress&cs=tinysrgb&w=800',
+    technologies: ['React', 'supabase', 'next-auth', 'Tailwind'],
+    github: 'https://github.com',
+    live: 'https://web-puisi-react.vercel.app/',
+    category: 'Full stack',
+  },
+
+  {
+    id: 4,
     title: 'Platform Portfolio CMS',
     description: 'Pembuat portfolio interaktif untuk seniman dan desainer dengan animasi kustom dan integrasi CMS.',
     fullDescription: 'Platform portfolio inovatif yang memungkinkan profesional kreatif untuk memamerkan karya mereka dengan animasi menakjubkan dan elemen interaktif. Dibangun dengan React dan Framer Motion, menampilkan pembuat drag-and-drop, tema kustom, dan manajemen konten yang mulus.',
@@ -33,7 +58,7 @@ const projects = [
     category: 'Frontend',
   },
   {
-    id: 3,
+    id: 4,
     title: 'Web Puisi',
     description: 'Website puisi interaktif dengan visualisasi data dan fitur komunitas.',
     fullDescription: 'Situs web puisi interaktif yang menggabungkan visualisasi data dinamis dan fitur komunitas untuk penulis dan pembaca. Dibangun dengan React dan D3.js, menampilkan pembuat puisi kolaboratif, analitik pembaca, dan integrasi media sosial.',
