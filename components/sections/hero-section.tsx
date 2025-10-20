@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -10,11 +11,13 @@ import { InteractiveAvatar } from '@/components/interactive-avatar';
 
 interface HeroSectionProps {
   onNext: () => void;
+  onNavigateToProjects?: () => void;
+  onNavigateToContact?: () => void;
 }
 
 const roles = ['Developer', 'Designer', 'Creator', 'Innovator'];
 
-export function HeroSection({ onNext }: HeroSectionProps) {
+export function HeroSection({ onNext, onNavigateToProjects, onNavigateToContact }: HeroSectionProps) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [sparkles, setSparkles] = useState<Array<{ id: number; x: number; y: number }>>([]);
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
@@ -47,8 +50,33 @@ export function HeroSection({ onNext }: HeroSectionProps) {
     setTimeout(() => setSparkles([]), 2000);
   };
 
+  // Default handlers jika props tidak disediakan
+  const handleProjectsClick = () => {
+    if (onNavigateToProjects) {
+      onNavigateToProjects();
+    } else {
+      // Fallback ke navigasi manual jika tidak ada handler
+      const projectsSection = document.getElementById('projects');
+      if (projectsSection) {
+        projectsSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
+  const handleContactClick = () => {
+    if (onNavigateToContact) {
+      onNavigateToContact();
+    } else {
+      // Fallback ke navigasi manual jika tidak ada handler
+      const contactSection = document.getElementById('contact');
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Particle Field Background */}
       <ParticleField />
 
@@ -168,6 +196,7 @@ export function HeroSection({ onNext }: HeroSectionProps) {
             transition={{ delay: 3.5 }}
           >
             <motion.button
+              onClick={handleProjectsClick}
               className="px-8 py-4 bg-primary text-primary-foreground rounded-full font-semibold text-lg shadow-lg"
               whileHover={{ 
                 scale: 1.05, 
@@ -180,6 +209,7 @@ export function HeroSection({ onNext }: HeroSectionProps) {
             </motion.button>
             
             <motion.button
+              onClick={handleContactClick}
               className="px-8 py-4 border-2 border-primary/50 text-primary rounded-full font-semibold text-lg hover:bg-primary/10 transition-colors"
               whileHover={{ 
                 scale: 1.05,

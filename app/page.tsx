@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -34,6 +35,15 @@ export default function Home() {
 
   const handleSectionChange = (index: number) => {
     setCurrentSection(index);
+  };
+
+  // Fungsi navigasi khusus untuk Hero Section
+  const handleNavigateToProjects = () => {
+    setCurrentSection(3); // Projects section index
+  };
+
+  const handleNavigateToContact = () => {
+    setCurrentSection(5); // Contact section index
   };
 
   return (
@@ -84,7 +94,17 @@ export default function Home() {
                     transition={{ duration: 0.6, ease: "easeOut" }}
                     className="min-h-screen"
                   >
-                    <Component onNext={() => handleSectionChange(index + 1)} />
+                    {index === 0 ? (
+                      // Hero section dengan navigasi khusus
+                      <Component 
+                        onNext={() => handleSectionChange(index + 1)} 
+                        onNavigateToProjects={handleNavigateToProjects}
+                        onNavigateToContact={handleNavigateToContact}
+                      />
+                    ) : (
+                      // Section lainnya
+                      <Component onNext={() => handleSectionChange(index + 1)} />
+                    )}
                   </motion.div>
                 ) : null;
               })}

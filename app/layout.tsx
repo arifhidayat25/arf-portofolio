@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Portfolio - ARFID ',
-  description: 'Portfolio pribadi Arif Fadilah - Pengembang Web dan Mobile',
+  description: 'Portfolio pribadi Arif Hidayat - Pengembang Web dan Mobile',
 };
 
 export default function RootLayout({
