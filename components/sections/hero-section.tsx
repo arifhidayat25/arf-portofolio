@@ -98,17 +98,17 @@ export function HeroSection({ onNext, onNavigateToProjects, onNavigateToContact 
       />
 
       {/* Main Content Container */}
-      <div className="relative z-10 flex items-center justify-between w-full max-w-7xl mx-auto px-6">
+      <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between w-full max-w-7xl mx-auto px-4 sm:px-6">
         {/* Left Side - Text Content */}
-        <div className="flex-1 text-left">
+        <div className="flex-1 text-center lg:text-left w-full">
           <motion.div
-            className="relative inline-block mb-6"
+            className="relative inline-block mb-4 sm:mb-6"
             onHoverStart={handleNameHover}
             whileHover={{ scale: 1.02 }}
           >
             <TypewriterText
               text="A R F I D"
-              className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-violet-400 via-blue-400 to-teal-400 bg-clip-text text-transparent block"
+              className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-violet-400 via-blue-400 to-teal-400 bg-clip-text text-transparent block"
               delay={0.5}
               speed={100}
             />
@@ -144,20 +144,20 @@ export function HeroSection({ onNext, onNavigateToProjects, onNavigateToContact 
           </motion.div>
 
           {/* Animated Role Text */}
-          <div className="mb-8">
+          <div className="mb-6 sm:mb-8">
             <motion.span
-              className="text-xl md:text-2xl text-muted-foreground"
+              className="text-lg sm:text-xl md:text-2xl text-muted-foreground"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 2.5 }}
             >
               Creative{' '}
             </motion.span>
-            <div className="inline-block relative h-8 md:h-10 overflow-hidden">
+            <div className="inline-block relative h-7 sm:h-8 md:h-10 overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.span
                   key={currentRoleIndex}
-                  className="absolute text-xl md:text-2xl font-semibold bg-gradient-to-r from-violet-400 to-teal-400 bg-clip-text text-transparent"
+                  className="absolute text-lg sm:text-xl md:text-2xl font-semibold bg-gradient-to-r from-violet-400 to-teal-400 bg-clip-text text-transparent"
                   initial={{ y: 40, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -40, opacity: 0 }}
@@ -168,18 +168,18 @@ export function HeroSection({ onNext, onNavigateToProjects, onNavigateToContact 
               </AnimatePresence>
             </div>
             <motion.span
-              className="text-xl md:text-2xl text-muted-foreground"
+              className="text-lg sm:text-xl md:text-2xl text-muted-foreground"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 2.5 }}
             >
-              {' '}& Digital Artist
+              {' '} & Digital Artist
             </motion.span>
           </div>
 
           {/* Description */}
           <motion.p
-            className="text-lg text-muted-foreground mb-12 max-w-2xl leading-relaxed"
+            className="text-base sm:text-lg text-muted-foreground mb-8 sm:mb-12 max-w-2xl leading-relaxed px-4 lg:px-0"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 3 }}
@@ -190,14 +190,14 @@ export function HeroSection({ onNext, onNavigateToProjects, onNavigateToContact 
 
           {/* CTA Buttons */}
           <motion.div
-            className="flex gap-6"
+            className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full sm:w-auto px-4 lg:px-0"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 3.5 }}
           >
             <motion.button
               onClick={handleProjectsClick}
-              className="px-8 py-4 bg-primary text-primary-foreground rounded-full font-semibold text-lg shadow-lg"
+              className="px-6 sm:px-8 py-3 sm:py-4 bg-primary text-primary-foreground rounded-full font-semibold text-base sm:text-lg shadow-lg w-full sm:w-auto"
               whileHover={{ 
                 scale: 1.05, 
                 boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
@@ -210,7 +210,7 @@ export function HeroSection({ onNext, onNavigateToProjects, onNavigateToContact 
             
             <motion.button
               onClick={handleContactClick}
-              className="px-8 py-4 border-2 border-primary/50 text-primary rounded-full font-semibold text-lg hover:bg-primary/10 transition-colors"
+              className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-primary/50 text-primary rounded-full font-semibold text-base sm:text-lg hover:bg-primary/10 transition-colors w-full sm:w-auto"
               whileHover={{ 
                 scale: 1.05,
                 borderColor: "hsl(var(--primary))",
@@ -224,7 +224,7 @@ export function HeroSection({ onNext, onNavigateToProjects, onNavigateToContact 
         </div>
 
         {/* Right Side - Interactive Avatar */}
-        <div className="flex-1 flex justify-center items-center">
+        <div className="hidden lg:flex flex-1 justify-center items-center">
           <InteractiveAvatar mousePosition={mousePosition} />
         </div>
       </div>
@@ -248,7 +248,7 @@ export function HeroSection({ onNext, onNavigateToProjects, onNavigateToContact 
 
       {/* Floating decorative elements */}
       <motion.div
-        className="absolute top-20 left-20 w-4 h-4 bg-violet-400 rounded-full"
+        className="absolute top-20 left-4 sm:left-20 w-3 sm:w-4 h-3 sm:h-4 bg-violet-400 rounded-full"
         animate={{
           y: [-10, 10, -10],
           opacity: [0.5, 1, 0.5],
@@ -257,7 +257,7 @@ export function HeroSection({ onNext, onNavigateToProjects, onNavigateToContact 
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute top-1/3 right-20 w-6 h-6 bg-teal-400 rounded-full"
+        className="absolute top-1/3 right-4 sm:right-20 w-4 sm:w-6 h-4 sm:h-6 bg-teal-400 rounded-full"
         animate={{
           y: [10, -10, 10],
           opacity: [0.5, 1, 0.5],
@@ -266,7 +266,7 @@ export function HeroSection({ onNext, onNavigateToProjects, onNavigateToContact 
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute bottom-1/4 left-1/4 w-3 h-3 bg-blue-400 rounded-full"
+        className="absolute bottom-1/4 left-1/4 w-2 sm:w-3 h-2 sm:h-3 bg-blue-400 rounded-full"
         animate={{
           x: [-5, 5, -5],
           y: [-5, 5, -5],

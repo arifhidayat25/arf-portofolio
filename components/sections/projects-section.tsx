@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { ExternalLink, Github, ChevronLeft, ChevronRight, X } from 'lucide-react';
@@ -39,7 +39,7 @@ const projects = [
     title: 'Web Puisi',
     description: 'Website puisi interaktif dengan visualisasi data dan fitur komunitas.',
     fullDescription: 'Situs web puisi interaktif yang menggabungkan visualisasi data dinamis dan fitur komunitas untuk penulis dan pembaca. Dibangun dengan React dan D3.js, menampilkan pembuat puisi kolaboratif, analitik pembaca, dan integrasi media sosial.',
-    image: 'https://s0.wordpress.com/mshots/v1/https%3A%2F%2Fweb-puisi-react.vercel.app%2F?w=1280&h=720es.pexels.com/photos/590020/pexels-photo-590020.jpg?auto=compress&cs=tinysrgb&w=800',
+    image: 'https://s0.wordpress.com/mshots/v1/https%3A%2F%2Fweb-puisi-react.vercel.app%2F?w=1280&h=720',
     technologies: ['React', 'supabase', 'next-auth', 'Tailwind'],
     github: 'https://github.com',
     live: 'https://web-puisi-react.vercel.app/',
@@ -51,22 +51,23 @@ const projects = [
     title: 'Platform Portfolio CMS',
     description: 'Pembuat portfolio interaktif untuk seniman dan desainer dengan animasi kustom dan integrasi CMS.',
     fullDescription: 'Platform portfolio inovatif yang memungkinkan profesional kreatif untuk memamerkan karya mereka dengan animasi menakjubkan dan elemen interaktif. Dibangun dengan React dan Framer Motion, menampilkan pembuat drag-and-drop, tema kustom, dan manajemen konten yang mulus.',
-    image: 'https://s0.wordpress.com/mshots/v1/https%3A%2F%2Fcompany-profile-cms-brown.vercel.app%2F?w=1280&h=720https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: 'https://s0.wordpress.com/mshots/v1/https%3A%2F%2Fcompany-profile-cms-brown.vercel.app%2F?w=1280&h=720',
     technologies: ['React', 'Framer Motion', 'Supabase', 'Tailwind'],
     github: 'https://github.com',
     live: 'https://company-profile-cms-brown.vercel.app/',
     category: 'Frontend',
   },
+
   {
-    id: 4,
-    title: 'Web Puisi',
-    description: 'Website puisi interaktif dengan visualisasi data dan fitur komunitas.',
-    fullDescription: 'Situs web puisi interaktif yang menggabungkan visualisasi data dinamis dan fitur komunitas untuk penulis dan pembaca. Dibangun dengan React dan D3.js, menampilkan pembuat puisi kolaboratif, analitik pembaca, dan integrasi media sosial.',
-    image: 'https://s0.wordpress.com/mshots/v1/https%3A%2F%2Fweb-puisi-react.vercel.app%2F?w=1280&h=720es.pexels.com/photos/590020/pexels-photo-590020.jpg?auto=compress&cs=tinysrgb&w=800',
-    technologies: ['React', 'supabase', 'next-auth', 'Tailwind'],
+    id: 5,
+    title: 'App Cuaca',
+    description: 'Aplikasi prakiraan cuaca real-time dengan antarmuka yang modern dan intuitif.',
+    fullDescription: 'Aplikasi cuaca yang menampilkan prakiraan cuaca real-time untuk berbagai lokasi di seluruh dunia. Dibangun dengan teknologi modern, aplikasi ini memberikan informasi cuaca akurat termasuk suhu, kelembaban, kecepatan angin, dan kondisi cuaca lainnya dengan antarmuka yang bersih dan mudah digunakan.',
+    image: 'https://s0.wordpress.com/mshots/v1/https%3A%2F%2Fappcuaca.netlify.app%2F?w=1280&h=720',
+    technologies: ['React', 'Weather API', 'CSS'],
     github: 'https://github.com',
-    live: 'https://web-puisi-react.vercel.app/',
-    category: 'Full stack',
+    live: 'https://appcuaca.netlify.app/',
+    category: 'Frontend',
   },
   
 ];
@@ -75,6 +76,18 @@ export function ProjectsSection({ onNext }: ProjectsSectionProps) {
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
   const [currentProject, setCurrentProject] = useState(0);
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Auto-play carousel
+  useEffect(() => {
+    if (!isHovered) {
+      const timer = setInterval(() => {
+        setCurrentProject((prev) => (prev + 1) % projects.length);
+      }, 5000); // Ganti setiap 5 detik
+
+      return () => clearInterval(timer);
+    }
+  }, [isHovered]);
 
   const handlePrevious = () => {
     setCurrentProject((prev) => (prev - 1 + projects.length) % projects.length);
@@ -93,24 +106,28 @@ export function ProjectsSection({ onNext }: ProjectsSectionProps) {
   };
 
   return (
-    <div ref={ref} className="min-h-screen flex items-center justify-center px-6 py-20">
-      <div className="max-w-7xl mx-auto">
+    <div ref={ref} className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-12 sm:py-20">
+      <div className="max-w-7xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-violet-400 to-teal-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-violet-400 to-teal-400 bg-clip-text text-transparent">
             Proyek Unggulan
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             Geser kiri atau kanan untuk menjelajahi karya terbaru saya, atau klik untuk melihat detail
           </p>
         </motion.div>
 
         {/* Project Carousel */}
-        <div className="relative overflow-hidden">
+        <div 
+          className="relative overflow-hidden"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
           <motion.div
             className="flex"
             drag="x"
@@ -128,7 +145,7 @@ export function ProjectsSection({ onNext }: ProjectsSectionProps) {
               >
                 <div className="relative bg-card/50 backdrop-blur-sm rounded-3xl border border-border/50 overflow-hidden shadow-2xl">
                   {/* Project Image */}
-                  <div className="relative h-64 md:h-80 overflow-hidden">
+                  <div className="relative h-48 sm:h-64 md:h-80 overflow-hidden">
                     <motion.img
                       src={project.image}
                       alt={project.title}
@@ -150,7 +167,7 @@ export function ProjectsSection({ onNext }: ProjectsSectionProps) {
                   </div>
 
                   {/* Project Content */}
-                  <div className="p-8">
+                  <div className="p-4 sm:p-6 md:p-8">
                     <motion.h3
                       className="text-2xl font-bold mb-3"
                       initial={{ opacity: 0, y: 20 }}
@@ -189,43 +206,20 @@ export function ProjectsSection({ onNext }: ProjectsSectionProps) {
                       ))}
                     </motion.div>
 
-                    {/* Action Buttons */}
+                    {/* Action Button */}
                     <motion.div
-                      className="flex gap-4"
                       initial={{ opacity: 0, y: 20 }}
                       animate={inView ? { opacity: 1, y: 0 } : {}}
                       transition={{ delay: 0.8 }}
                     >
                       <motion.button
                         onClick={() => setSelectedProject(project)}
-                        className="flex-1 bg-primary text-primary-foreground px-6 py-3 rounded-full font-medium hover:bg-primary/90 transition-colors"
+                        className="w-full bg-primary text-primary-foreground px-6 py-3 rounded-full font-medium hover:bg-primary/90 transition-colors"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
                         Lihat Detail
                       </motion.button>
-                      
-                      <motion.a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-12 h-12 bg-muted hover:bg-muted/80 rounded-full flex items-center justify-center transition-colors"
-                        whileHover={{ scale: 1.1, rotate: 10 }}
-                        whileTap={{ scale: 0.9 }}
-                      >
-                        <Github className="w-5 h-5" />
-                      </motion.a>
-                      
-                      <motion.a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-12 h-12 bg-muted hover:bg-muted/80 rounded-full flex items-center justify-center transition-colors"
-                        whileHover={{ scale: 1.1, rotate: -10 }}
-                        whileTap={{ scale: 0.9 }}
-                      >
-                        <ExternalLink className="w-5 h-5" />
-                      </motion.a>
                     </motion.div>
                   </div>
                 </div>
@@ -236,20 +230,20 @@ export function ProjectsSection({ onNext }: ProjectsSectionProps) {
           {/* Navigation Arrows */}
           <motion.button
             onClick={handlePrevious}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/40 transition-colors"
+            className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/40 transition-colors"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
           </motion.button>
           
           <motion.button
             onClick={handleNext}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/40 transition-colors"
+            className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/40 transition-colors"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
           </motion.button>
         </div>
 
@@ -281,7 +275,7 @@ export function ProjectsSection({ onNext }: ProjectsSectionProps) {
             whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(0,0,0,0.3)" }}
             whileTap={{ scale: 0.95 }}
           >
-            Baca Testimoni
+            Hubungi Saya
           </motion.button>
         </motion.div>
       </div>
@@ -300,10 +294,10 @@ export function ProjectsSection({ onNext }: ProjectsSectionProps) {
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
-              className="bg-card rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden"
+              className="bg-card rounded-2xl sm:rounded-3xl max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative h-64 md:h-80">
+              <div className="relative h-48 sm:h-64 md:h-80">
                 <img
                   src={selectedProject.image}
                   alt={selectedProject.title}
@@ -317,7 +311,7 @@ export function ProjectsSection({ onNext }: ProjectsSectionProps) {
                 </button>
               </div>
               
-              <div className="p-8">
+              <div className="p-4 sm:p-6 md:p-8">
                 <h3 className="text-3xl font-bold mb-4">{selectedProject.title}</h3>
                 <p className="text-muted-foreground mb-6">{selectedProject.fullDescription}</p>
                 

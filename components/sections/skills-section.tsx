@@ -105,24 +105,24 @@ export function SkillsSection({ onNext }: SkillsSectionProps) {
   };
 
   return (
-    <div ref={ref} className="min-h-screen flex items-center justify-center px-6 py-20">
-      <div className="max-w-7xl mx-auto">
+    <div ref={ref} className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-12 sm:py-20">
+      <div className="max-w-7xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-violet-400 to-teal-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-violet-400 to-teal-400 bg-clip-text text-transparent">
             Keahlian & Keunggulan
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             Klik pada kartu keahlian untuk menemukan teknologi yang saya gunakan
           </p>
         </motion.div>
 
         {/* Skills Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {skills.map((skill, index) => {
             const Icon = skill.icon;
             const isFlipped = flippedCards.has(skill.id);
@@ -130,7 +130,7 @@ export function SkillsSection({ onNext }: SkillsSectionProps) {
             return (
               <motion.div
                 key={skill.id}
-                className="relative h-64 cursor-pointer perspective-1000"
+                className="relative h-56 sm:h-64 cursor-pointer perspective-1000"
                 initial={{ opacity: 0, y: 50 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -145,19 +145,19 @@ export function SkillsSection({ onNext }: SkillsSectionProps) {
                 >
                   {/* Front of card */}
                   <motion.div
-                    className="absolute inset-0 w-full h-full backface-hidden bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm rounded-2xl border border-border/50 p-6 flex flex-col items-center justify-center"
+                    className="absolute inset-0 w-full h-full backface-hidden bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm rounded-2xl border border-border/50 p-4 sm:p-6 flex flex-col items-center justify-center"
                     whileHover={{ scale: 1.05, y: -5 }}
                     style={{ backfaceVisibility: 'hidden' }}
                   >
                     <motion.div
-                      className={`w-16 h-16 rounded-full bg-gradient-to-r ${skill.color} flex items-center justify-center mb-4`}
+                      className={`w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-r ${skill.color} flex items-center justify-center mb-3 sm:mb-4`}
                       animate={hoveredSkill === skill.id ? { rotate: 360, scale: 1.1 } : {}}
                       transition={{ duration: 0.5 }}
                     >
-                      <Icon className="w-8 h-8 text-white" />
+                      <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                     </motion.div>
                     
-                    <h3 className="text-xl font-bold mb-2">{skill.name}</h3>
+                    <h3 className="text-lg sm:text-xl font-bold mb-2">{skill.name}</h3>
                     
                     {/* Progress bar */}
                     <div className="w-full bg-muted rounded-full h-2 mb-2">
@@ -174,11 +174,11 @@ export function SkillsSection({ onNext }: SkillsSectionProps) {
 
                   {/* Back of card */}
                   <motion.div
-                    className="absolute inset-0 w-full h-full backface-hidden bg-gradient-to-br from-card/90 to-card/60 backdrop-blur-sm rounded-2xl border border-border/50 p-6 flex flex-col justify-center"
+                    className="absolute inset-0 w-full h-full backface-hidden bg-gradient-to-br from-card/90 to-card/60 backdrop-blur-sm rounded-2xl border border-border/50 p-4 sm:p-6 flex flex-col justify-center"
                     style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
                   >
-                    <h3 className="text-lg font-bold mb-3 text-center">{skill.name}</h3>
-                    <p className="text-sm text-muted-foreground mb-4 text-center">
+                    <h3 className="text-base sm:text-lg font-bold mb-2 sm:mb-3 text-center">{skill.name}</h3>
+                    <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4 text-center line-clamp-3">
                       {skill.description}
                     </p>
                     <div className="space-y-2">

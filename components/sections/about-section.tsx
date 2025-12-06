@@ -43,27 +43,27 @@ export function AboutSection({ onNext }: AboutSectionProps) {
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
 
   return (
-    <div ref={ref} className="min-h-screen flex items-center justify-center px-6 py-20">
-      <div className="max-w-6xl mx-auto">
+    <div ref={ref} className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-12 sm:py-20">
+      <div className="max-w-6xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-violet-400 to-teal-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-violet-400 to-teal-400 bg-clip-text text-transparent">
             Perjalanan Saya
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             Dari pemula yang penasaran hingga developer yang penuh semangat, inilah bagaimana cerita saya berlangsung
           </p>
         </motion.div>
 
         {/* Timeline */}
         <div className="relative">
-          {/* Central line */}
+          {/* Central line - hidden on mobile */}
           <motion.div
-            className="absolute left-1/2 transform -translate-x-px h-full w-px bg-gradient-to-b from-violet-400 via-blue-400 to-teal-400"
+            className="hidden md:block absolute left-1/2 transform -translate-x-px h-full w-px bg-gradient-to-b from-violet-400 via-blue-400 to-teal-400"
             initial={{ height: 0 }}
             animate={inView ? { height: '100%' } : {}}
             transition={{ duration: 2, delay: 0.5 }}
@@ -76,38 +76,36 @@ export function AboutSection({ onNext }: AboutSectionProps) {
             return (
               <motion.div
                 key={item.year}
-                className={`relative flex items-center ${
-                  isEven ? 'justify-start' : 'justify-end'
-                } mb-16`}
-                initial={{ opacity: 0, x: isEven ? -100 : 100 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
+                className="relative flex items-center justify-center md:justify-start mb-8 sm:mb-12 md:mb-16 px-4 sm:px-0"
+                initial={{ opacity: 0, x: 0, y: 20 }}
+                animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: 0.8 + index * 0.2 }}
               >
                 {/* Content */}
                 <motion.div
-                  className={`w-80 ${isEven ? 'mr-8 text-right' : 'ml-8 text-left'}`}
+                  className="w-full md:w-80 md:mr-8 text-left"
                   whileHover={{ scale: 1.05, y: -5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="bg-card/50 backdrop-blur-sm rounded-2xl p-6 border border-border/50 shadow-lg">
-                    <div className={`flex items-center gap-3 mb-3 ${isEven ? 'justify-end' : 'justify-start'}`}>
-                      <span className="text-3xl">{item.avatar}</span>
+                  <div className="bg-card/50 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-border/50 shadow-lg">
+                    <div className="flex items-center gap-3 mb-3 justify-start">
+                      <span className="text-2xl sm:text-3xl">{item.avatar}</span>
                       <div>
-                        <h3 className="text-xl font-bold">{item.title}</h3>
-                        <p className="text-primary font-semibold">{item.year}</p>
+                        <h3 className="text-lg sm:text-xl font-bold">{item.title}</h3>
+                        <p className="text-sm sm:text-base text-primary font-semibold">{item.year}</p>
                       </div>
                     </div>
-                    <p className="text-muted-foreground">{item.description}</p>
+                    <p className="text-sm sm:text-base text-muted-foreground">{item.description}</p>
                   </div>
                 </motion.div>
 
-                {/* Icon in center */}
+                {/* Icon in center - hidden on mobile */}
                 <motion.div
-                  className="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 bg-primary rounded-full flex items-center justify-center border-4 border-background"
+                  className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-full items-center justify-center border-4 border-background"
                   whileHover={{ scale: 1.2, rotate: 180 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <Icon className="w-5 h-5 text-primary-foreground" />
+                  <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary-foreground" />
                 </motion.div>
               </motion.div>
             );

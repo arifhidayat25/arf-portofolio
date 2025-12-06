@@ -61,7 +61,7 @@ export function TestimonialsSection({ onNext }: TestimonialsSectionProps) {
   }, []);
 
   return (
-    <div ref={ref} className="min-h-screen flex items-center justify-center px-6 py-20 relative overflow-hidden">
+    <div ref={ref} className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-12 sm:py-20 relative overflow-hidden">
       {/* Animated Background */}
       <motion.div
         className="absolute inset-0 -z-10"
@@ -75,23 +75,23 @@ export function TestimonialsSection({ onNext }: TestimonialsSectionProps) {
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-violet-400 to-teal-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-violet-400 to-teal-400 bg-clip-text text-transparent">
             Ulasan Klien
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             Apa yang dikatakan klien tentang bekerja dengan saya
           </p>
         </motion.div>
 
         {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.id}
@@ -106,7 +106,7 @@ export function TestimonialsSection({ onNext }: TestimonialsSectionProps) {
               }}
             >
               <motion.div
-                className="bg-card/50 backdrop-blur-sm rounded-2xl border border-border/50 p-8 h-full relative overflow-hidden"
+                className="bg-card/50 backdrop-blur-sm rounded-2xl border border-border/50 p-6 sm:p-8 h-full relative overflow-hidden"
                 whileHover={{ 
                   scale: 1.02, 
                   y: -10,

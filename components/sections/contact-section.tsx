@@ -59,7 +59,7 @@ export function ContactSection({ onNext }: ContactSectionProps) {
   };
 
   return (
-    <div ref={ref} className="min-h-screen flex items-center justify-center px-6 py-20 relative overflow-hidden">
+    <div ref={ref} className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-12 sm:py-20 pb-20 sm:pb-20 relative overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0 -z-10">
         {Array.from({ length: 20 }).map((_, i) => (
@@ -114,22 +114,22 @@ export function ContactSection({ onNext }: ContactSectionProps) {
         )}
       </AnimatePresence>
 
-      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center w-full">
         {/* Contact Info */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-violet-400 to-teal-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-violet-400 to-teal-400 bg-clip-text text-transparent">
             Mari Terhubung
           </h2>
-          <p className="text-xl text-muted-foreground mb-12">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 sm:mb-12">
             Siap untuk mewujudkan ide-ide Anda? Mari mulai percakapan dan ciptakan sesuatu yang luar biasa bersama.
           </p>
 
           {/* Contact Methods */}
-          <div className="space-y-6 mb-12">
+          <div className="space-y-4 sm:space-y-6 mb-8 sm:mb-12">
             {[
               { icon: Mail, label: 'Email', value: 'achmadarifh25@gmail.com', color: 'from-blue-400 to-cyan-600' },
               { icon: Phone, label: 'Telepon', value: '+62 895-0660-9757', color: 'from-green-400 to-emerald-600' },
@@ -166,7 +166,7 @@ export function ContactSection({ onNext }: ContactSectionProps) {
           initial={{ opacity: 0, x: 50 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="bg-card/50 backdrop-blur-sm rounded-3xl border border-border/50 p-8 shadow-2xl"
+          className="bg-card/50 backdrop-blur-sm rounded-3xl border border-border/50 p-4 sm:p-6 md:p-8 shadow-2xl"
         >
           {/* Chat Header */}
           <div className="flex items-center gap-4 mb-8 pb-6 border-b border-border/30">
@@ -187,7 +187,7 @@ export function ContactSection({ onNext }: ContactSectionProps) {
           </div>
 
           {/* Chat Messages */}
-          <div className="h-80 overflow-y-auto mb-6 space-y-4">
+          <div className="h-64 sm:h-80 overflow-y-auto mb-4 sm:mb-6 space-y-4">
             {/* Initial messages */}
             {chatMessages.map((msg) => (
               <motion.div
