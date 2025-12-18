@@ -2,40 +2,52 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Calendar, MapPin, Code, Coffee } from 'lucide-react';
+import { GitCommit, GitBranch, Code, Briefcase, GraduationCap, Rocket } from 'lucide-react';
 
 interface AboutSectionProps {
   onNext: () => void;
 }
 
-const timelineItems = [
+const commits = [
   {
-    year: '2019',
-    title: 'Memulai Belajar Kode',
+    hash: 'a1b2c3d',
+    date: '2025',
+    title: 'feat: Full Stack Developer',
+    description: 'Membangun aplikasi yang dapat diskalakan dengan teknologi modern',
+    icon: Rocket,
+    branch: 'main',
+    additions: 500,
+    deletions: 0,
+  },
+  {
+    hash: 'e4f5g6h',
+    date: '2025',
+    title: 'feat: Magang Pertama',
+    description: 'Frontend Developer di ITSK Dr Soepraoen',
+    icon: Briefcase,
+    branch: 'career',
+    additions: 350,
+    deletions: 50,
+  },
+  {
+    hash: 'i7j8k9l',
+    date: '2022',
+    title: 'feat: Mahasiswa Universitas',
+    description: 'Jurusan Sistem Informasi, fokus pada pengembangan web',
+    icon: GraduationCap,
+    branch: 'education',
+    additions: 200,
+    deletions: 0,
+  },
+  {
+    hash: 'm0n1o2p',
+    date: '2019',
+    title: 'init: Memulai Belajar Kode',
     description: 'Memulai perjalanan dengan HTML, CSS, dan JavaScript',
     icon: Code,
-    avatar: '👶',
-  },
-  {
-    year: '2022',
-    title: 'Mahasiswa Universitas',
-    description: 'Jurusan Sistem Informasi, fokus pada pengembangan web',
-    icon: Calendar,
-    avatar: '🎓',
-  },
-  {
-    year: '2025',
-    title: 'Magang Pertama',
-    description: 'Frontend Developer di ITSK Dr Soepraoen',
-    icon: MapPin,
-    avatar: '💻',
-  },
-  {
-    year: '2025',
-    title: 'Full Stack Developer',
-    description: 'Membangun aplikasi yang dapat diskalakan dengan teknologi modern',
-    icon: Coffee,
-    avatar: '🚀',
+    branch: 'origin',
+    additions: 100,
+    deletions: 0,
   },
 ];
 
@@ -43,92 +55,120 @@ export function AboutSection({ onNext }: AboutSectionProps) {
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
 
   return (
-    <div ref={ref} className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-12 sm:py-20">
-      <div className="max-w-6xl mx-auto w-full">
+    <div ref={ref} className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-12 sm:py-20 relative">
+      {/* Background Elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <motion.div
+          className="absolute top-20 right-20 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl"
+          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+          transition={{ duration: 8, repeat: Infinity }}
+        />
+        <motion.div
+          className="absolute bottom-20 left-20 w-80 h-80 bg-fuchsia-500/10 rounded-full blur-3xl"
+          animate={{ scale: [1.2, 1, 1.2], opacity: [0.3, 0.5, 0.3] }}
+          transition={{ duration: 10, repeat: Infinity }}
+        />
+      </div>
+
+      <div className="max-w-4xl mx-auto w-full relative z-10">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
           className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-violet-400 to-teal-400 bg-clip-text text-transparent">
+          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-slate-800/50 rounded-full border border-slate-700/50">
+            <GitBranch className="w-4 h-4 text-cyan-400" />
+            <span className="text-sm font-mono text-slate-400">git log --oneline --graph</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 gradient-text-code">
             Perjalanan Saya
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
-            Dari pemula yang penasaran hingga developer yang penuh semangat, inilah bagaimana cerita saya berlangsung
+          <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto font-mono">
+            // From curious beginner to passionate developer
           </p>
         </motion.div>
 
-        {/* Timeline */}
+        {/* Git Log Timeline */}
         <div className="relative">
-          {/* Central line - hidden on mobile */}
+          {/* Main branch line */}
           <motion.div
-            className="hidden md:block absolute left-1/2 transform -translate-x-px h-full w-px bg-gradient-to-b from-violet-400 via-blue-400 to-teal-400"
+            className="absolute left-6 sm:left-8 top-0 w-0.5 bg-gradient-to-b from-cyan-500 via-fuchsia-500 to-lime-500"
             initial={{ height: 0 }}
             animate={inView ? { height: '100%' } : {}}
-            transition={{ duration: 2, delay: 0.5 }}
+            transition={{ duration: 1.5, delay: 0.5 }}
           />
 
-          {timelineItems.map((item, index) => {
-            const isEven = index % 2 === 0;
-            const Icon = item.icon;
-            
-            return (
-              <motion.div
-                key={item.year}
-                className="relative flex items-center justify-center md:justify-start mb-8 sm:mb-12 md:mb-16 px-4 sm:px-0"
-                initial={{ opacity: 0, x: 0, y: 20 }}
-                animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: 0.8 + index * 0.2 }}
-              >
-                {/* Content */}
+          {/* Commits */}
+          <div className="space-y-6">
+            {commits.map((commit, index) => {
+              const Icon = commit.icon;
+              return (
                 <motion.div
-                  className="w-full md:w-80 md:mr-8 text-left"
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  key={commit.hash}
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.6, delay: 0.8 + index * 0.2 }}
+                  className="relative pl-16 sm:pl-20"
                 >
-                  <div className="bg-card/50 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-border/50 shadow-lg">
-                    <div className="flex items-center gap-3 mb-3 justify-start">
-                      <span className="text-2xl sm:text-3xl">{item.avatar}</span>
-                      <div>
-                        <h3 className="text-lg sm:text-xl font-bold">{item.title}</h3>
-                        <p className="text-sm sm:text-base text-primary font-semibold">{item.year}</p>
+                  {/* Commit dot */}
+                  <motion.div
+                    className="absolute left-4 sm:left-6 w-4 h-4 bg-slate-900 border-2 border-cyan-500 rounded-full"
+                    whileHover={{ scale: 1.3, borderColor: 'hsl(var(--lime))' }}
+                  >
+                    <div className="absolute inset-0 bg-cyan-500/30 rounded-full animate-ping" />
+                  </motion.div>
+
+                  {/* Commit Card */}
+                  <motion.div
+                    className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700/50 overflow-hidden card-hover-glow"
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    {/* Commit header */}
+                    <div className="px-4 sm:px-6 py-3 bg-slate-800/80 border-b border-slate-700/50 flex flex-wrap items-center gap-3">
+                      <div className="flex items-center gap-2">
+                        <GitCommit className="w-4 h-4 text-cyan-400" />
+                        <span className="font-mono text-sm text-amber-400">{commit.hash}</span>
+                      </div>
+                      <span className="font-mono text-xs text-slate-500">|</span>
+                      <span className="font-mono text-xs text-slate-400">{commit.date}</span>
+                      <span className="px-2 py-0.5 bg-fuchsia-500/20 border border-fuchsia-500/50 rounded text-xs font-mono text-fuchsia-400">
+                        {commit.branch}
+                      </span>
+                    </div>
+
+                    {/* Commit body */}
+                    <div className="p-4 sm:p-6">
+                      <div className="flex items-start gap-4">
+                        <motion.div
+                          className="p-3 bg-gradient-to-br from-cyan-500/20 to-fuchsia-500/20 rounded-lg border border-cyan-500/30"
+                          whileHover={{ rotate: 10 }}
+                        >
+                          <Icon className="w-6 h-6 text-cyan-400" />
+                        </motion.div>
+                        <div className="flex-1">
+                          <h3 className="text-lg sm:text-xl font-bold text-white mb-2 font-mono">
+                            {commit.title}
+                          </h3>
+                          <p className="text-slate-400 text-sm mb-3">
+                            {commit.description}
+                          </p>
+                          <div className="flex items-center gap-4 text-xs font-mono">
+                            <span className="text-lime-400">+{commit.additions}</span>
+                            {commit.deletions > 0 && (
+                              <span className="text-red-400">-{commit.deletions}</span>
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <p className="text-sm sm:text-base text-muted-foreground">{item.description}</p>
-                  </div>
+                  </motion.div>
                 </motion.div>
-
-                {/* Icon in center - hidden on mobile */}
-                <motion.div
-                  className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-full items-center justify-center border-4 border-background"
-                  whileHover={{ scale: 1.2, rotate: 180 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary-foreground" />
-                </motion.div>
-              </motion.div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
-
-        {/* Parallax background elements */}
-        <motion.div
-          className="absolute top-20 left-10 w-20 h-20 bg-violet-500/10 rounded-full blur-xl"
-          animate={{
-            y: [0, -50, 0],
-            x: [0, 30, 0],
-          }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-10 w-32 h-32 bg-teal-500/10 rounded-full blur-xl"
-          animate={{
-            y: [0, 50, 0],
-            x: [0, -30, 0],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
 
         {/* Next button */}
         <motion.div
@@ -139,11 +179,20 @@ export function AboutSection({ onNext }: AboutSectionProps) {
         >
           <motion.button
             onClick={onNext}
-            className="px-8 py-3 bg-primary text-primary-foreground rounded-full font-semibold"
-            whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(0,0,0,0.3)" }}
+            className="group px-6 py-3 bg-cyan-500/20 border border-cyan-500/50 rounded-lg font-mono text-cyan-400
+                       hover:bg-cyan-500/30 hover:border-cyan-400 transition-all duration-300"
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Lihat Keahlian Saya
+            <span className="flex items-center gap-2">
+              $ view --skills
+              <motion.span
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1, repeat: Infinity }}
+              >
+                →
+              </motion.span>
+            </span>
           </motion.button>
         </motion.div>
       </div>

@@ -5,232 +5,239 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { 
   Code2, Database, Palette, Smartphone, 
-  Globe, Zap, Brain, Users 
+  Globe, Zap, Brain, GitBranch, Server, Layout
 } from 'lucide-react';
 
 interface SkillsSectionProps {
   onNext: () => void;
 }
 
-const skills = [
+const categories = [
   {
-    id: 1,
+    id: 'frontend',
     name: 'Frontend',
-    icon: Code2,
-    level: 95,
-    color: 'from-violet-400 to-purple-600',
-    technologies: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'],
-    description: 'Membangun antarmuka pengguna yang indah dan responsif dengan framework modern dan praktik terbaik.',
+    icon: Layout,
+    skills: [
+      { name: 'React', level: 95, color: '#61DAFB' },
+      { name: 'Next.js', level: 90, color: '#000000' },
+      { name: 'TypeScript', level: 88, color: '#3178C6' },
+      { name: 'Tailwind CSS', level: 92, color: '#06B6D4' },
+      { name: 'Framer Motion', level: 85, color: '#FF0066' },
+    ]
   },
   {
-    id: 2,
+    id: 'backend',
     name: 'Backend',
-    icon: Database,
-    level: 85,
-    color: 'from-blue-400 to-cyan-600',
-    technologies: ['Node.js', 'Python', 'PostgreSQL', 'MongoDB'],
-    description: 'Membuat aplikasi server-side yang kuat dan mengelola arsitektur database yang kompleks.',
+    icon: Server,
+    skills: [
+      { name: 'Node.js', level: 85, color: '#339933' },
+      { name: 'Python', level: 75, color: '#3776AB' },
+      { name: 'PostgreSQL', level: 80, color: '#4169E1' },
+      { name: 'MongoDB', level: 78, color: '#47A248' },
+      { name: 'REST API', level: 88, color: '#FF6B6B' },
+    ]
   },
   {
-    id: 3,
-    name: 'Desain',
-    icon: Palette,
-    level: 80,
-    color: 'from-pink-400 to-rose-600',
-    technologies: ['Figma', 'Adobe Suite', 'Framer', 'Principle'],
-    description: 'Menciptakan pengalaman pengguna yang intuitif dengan fokus pada estetika dan kegunaan.',
-  },
-  {
-    id: 4,
-    name: 'Mobile',
-    icon: Smartphone,
-    level: 10,
-    color: 'from-green-400 to-emerald-600',
-    technologies: ['React Native', 'Flutter', 'Swift', 'Kotlin'],
-    description: 'Mengembangkan aplikasi mobile lintas platform dengan performa native.',
-  },
-  {
-    id: 5,
-    name: 'DevOps',
-    icon: Globe,
-    level: 20,
-    color: 'from-orange-400 to-red-600',
-    technologies: ['Docker', 'AWS', 'GitHub Actions', 'Kubernetes'],
-    description: 'Menyederhanakan proses deployment dan mengelola infrastruktur cloud.',
-  },
-  {
-    id: 6,
-    name: 'AI/ML',
-    icon: Brain,
-    level: 90,
-    color: 'from-teal-400 to-blue-600',
-    technologies: ['TensorFlow', 'PyTorch', 'OpenAI API', 'Hugging Face'],
-    description: 'Mengimplementasikan solusi cerdas dengan machine learning dan teknologi AI.',
-  },
-  {
-    id: 7,
-    name: 'Performa',
-    icon: Zap,
-    level: 70,
-    color: 'from-yellow-400 to-orange-600',
-    technologies: ['Optimasi', 'Caching', 'CDN', 'Monitoring'],
-    description: 'Mengoptimalkan aplikasi untuk kecepatan dan efisiensi maksimal.',
-  },
-  {
-    id: 8,
-    name: 'Kolaborasi',
-    icon: Users,
-    level: 95,
-    color: 'from-indigo-400 to-purple-600',
-    technologies: ['Git', 'Agile', 'Slack', 'Notion'],
-    description: 'Bekerja efektif dalam tim dengan alat kolaborasi modern dan metodologi.',
-  },
+    id: 'tools',
+    name: 'Tools',
+    icon: GitBranch,
+    skills: [
+      { name: 'Git', level: 90, color: '#F05032' },
+      { name: 'Docker', level: 65, color: '#2496ED' },
+      { name: 'Figma', level: 80, color: '#F24E1E' },
+      { name: 'VS Code', level: 95, color: '#007ACC' },
+      { name: 'Linux', level: 70, color: '#FCC624' },
+    ]
+  }
 ];
+
+const allSkillsFlat = {
+  frontend: [
+    { icon: Code2, name: 'Frontend', level: 95, color: 'from-cyan-400 to-blue-500', description: 'React, Next.js, TypeScript' },
+    { icon: Palette, name: 'UI/UX', level: 80, color: 'from-pink-400 to-rose-500', description: 'Figma, Design Systems' },
+  ],
+  backend: [
+    { icon: Database, name: 'Backend', level: 85, color: 'from-green-400 to-emerald-500', description: 'Node.js, Python, APIs' },
+    { icon: Server, name: 'Database', level: 82, color: 'from-violet-400 to-purple-500', description: 'PostgreSQL, MongoDB' },
+  ],
+  other: [
+    { icon: Smartphone, name: 'Mobile', level: 60, color: 'from-orange-400 to-red-500', description: 'React Native, Flutter' },
+    { icon: Globe, name: 'DevOps', level: 65, color: 'from-teal-400 to-cyan-500', description: 'Docker, AWS, CI/CD' },
+    { icon: Brain, name: 'AI/ML', level: 70, color: 'from-fuchsia-400 to-pink-500', description: 'OpenAI, TensorFlow' },
+    { icon: Zap, name: 'Performance', level: 78, color: 'from-amber-400 to-orange-500', description: 'Optimization, Caching' },
+  ]
+};
 
 export function SkillsSection({ onNext }: SkillsSectionProps) {
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
-  const [hoveredSkill, setHoveredSkill] = useState<number | null>(null);
-  const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set());
+  const [activeCategory, setActiveCategory] = useState('frontend');
+  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
 
-  const handleCardClick = (skillId: number) => {
-    setFlippedCards(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(skillId)) {
-        newSet.delete(skillId);
-      } else {
-        newSet.add(skillId);
-      }
-      return newSet;
-    });
-  };
+  const activeSkills = categories.find(c => c.id === activeCategory)?.skills || [];
 
   return (
-    <div ref={ref} className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-12 sm:py-20">
-      <div className="max-w-7xl mx-auto w-full">
+    <div ref={ref} className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-12 sm:py-20 relative">
+      {/* Background Effects */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <motion.div
+          className="absolute top-1/4 left-1/3 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"
+          animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
+          transition={{ duration: 8, repeat: Infinity }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-1/3 w-80 h-80 bg-lime-500/10 rounded-full blur-3xl"
+          animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.4, 0.2] }}
+          transition={{ duration: 10, repeat: Infinity }}
+        />
+      </div>
+
+      <div className="max-w-6xl mx-auto w-full relative z-10">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-12 sm:mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-violet-400 to-teal-400 bg-clip-text text-transparent">
-            Keahlian & Keunggulan
+          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-slate-800/50 rounded-full border border-slate-700/50">
+            <Zap className="w-4 h-4 text-lime-400" />
+            <span className="text-sm font-mono text-slate-400">package.json → dependencies</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 gradient-text-code">
+            Tech Stack
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
-            Klik pada kartu keahlian untuk menemukan teknologi yang saya gunakan
+          <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto">
+            Technologies I work with to build amazing digital experiences
           </p>
         </motion.div>
 
-        {/* Skills Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          {skills.map((skill, index) => {
+        {/* Category Tabs */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="flex justify-center gap-2 mb-12"
+        >
+          {categories.map((category) => {
+            const Icon = category.icon;
+            return (
+              <motion.button
+                key={category.id}
+                onClick={() => setActiveCategory(category.id)}
+                className={`flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-mono text-sm transition-all duration-300 ${
+                  activeCategory === category.id
+                    ? 'bg-cyan-500/20 border border-cyan-500/50 text-cyan-400'
+                    : 'bg-slate-800/50 border border-slate-700/50 text-slate-400 hover:border-slate-600'
+                }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Icon className="w-4 h-4" />
+                <span className="hidden sm:inline">{category.name}</span>
+              </motion.button>
+            );
+          })}
+        </motion.div>
+
+        {/* Skills Display - Terminal Style */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="bg-slate-900/80 backdrop-blur-md rounded-xl border border-slate-700/50 overflow-hidden"
+        >
+          {/* Terminal Header */}
+          <div className="flex items-center gap-2 px-4 py-3 bg-slate-800/80 border-b border-slate-700/50">
+            <div className="flex gap-2">
+              <div className="w-3 h-3 rounded-full bg-red-500" />
+              <div className="w-3 h-3 rounded-full bg-yellow-500" />
+              <div className="w-3 h-3 rounded-full bg-green-500" />
+            </div>
+            <span className="flex-1 text-center text-sm text-slate-400 font-mono">
+              skills.json
+            </span>
+          </div>
+
+          {/* Skills List */}
+          <div className="p-6 font-mono">
+            <div className="text-slate-500 mb-4">{`{`}</div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeCategory}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.3 }}
+                className="pl-4 space-y-4"
+              >
+                <div className="text-fuchsia-400">&quot;{activeCategory}&quot;: {`{`}</div>
+                {activeSkills.map((skill, index) => (
+                  <motion.div
+                    key={skill.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="pl-4 group"
+                    onMouseEnter={() => setHoveredSkill(skill.name)}
+                    onMouseLeave={() => setHoveredSkill(null)}
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                      <div className="flex items-center gap-2">
+                        <span className="text-cyan-400">&quot;{skill.name}&quot;</span>
+                        <span className="text-slate-500">:</span>
+                      </div>
+                      <div className="flex-1 flex items-center gap-3">
+                        {/* Progress bar */}
+                        <div className="flex-1 h-2 bg-slate-700 rounded-full overflow-hidden max-w-xs">
+                          <motion.div
+                            className="h-full rounded-full"
+                            style={{ backgroundColor: skill.color }}
+                            initial={{ width: 0 }}
+                            animate={{ width: `${skill.level}%` }}
+                            transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
+                          />
+                        </div>
+                        <span className="text-lime-400 text-sm">{skill.level}%</span>
+                      </div>
+                    </div>
+                    {index < activeSkills.length - 1 && (
+                      <span className="text-slate-500">,</span>
+                    )}
+                  </motion.div>
+                ))}
+                <div className="text-fuchsia-400">{`}`}</div>
+              </motion.div>
+            </AnimatePresence>
+            <div className="text-slate-500 mt-4">{`}`}</div>
+          </div>
+        </motion.div>
+
+        {/* Quick Overview Cards */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8"
+        >
+          {allSkillsFlat.other.map((skill, index) => {
             const Icon = skill.icon;
-            const isFlipped = flippedCards.has(skill.id);
-            
             return (
               <motion.div
-                key={skill.id}
-                className="relative h-56 sm:h-64 cursor-pointer perspective-1000"
-                initial={{ opacity: 0, y: 50 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                onHoverStart={() => setHoveredSkill(skill.id)}
-                onHoverEnd={() => setHoveredSkill(null)}
-                onClick={() => handleCardClick(skill.id)}
+                key={skill.name}
+                className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700/50 p-4 card-hover-glow"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={inView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ delay: 0.8 + index * 0.1 }}
+                whileHover={{ y: -5 }}
               >
-                <motion.div
-                  className="relative w-full h-full transform-style-preserve-3d"
-                  animate={{ rotateY: isFlipped ? 180 : 0 }}
-                  transition={{ duration: 0.6, type: "spring" }}
-                >
-                  {/* Front of card */}
-                  <motion.div
-                    className="absolute inset-0 w-full h-full backface-hidden bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm rounded-2xl border border-border/50 p-4 sm:p-6 flex flex-col items-center justify-center"
-                    whileHover={{ scale: 1.05, y: -5 }}
-                    style={{ backfaceVisibility: 'hidden' }}
-                  >
-                    <motion.div
-                      className={`w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-r ${skill.color} flex items-center justify-center mb-3 sm:mb-4`}
-                      animate={hoveredSkill === skill.id ? { rotate: 360, scale: 1.1 } : {}}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
-                    </motion.div>
-                    
-                    <h3 className="text-lg sm:text-xl font-bold mb-2">{skill.name}</h3>
-                    
-                    {/* Progress bar */}
-                    <div className="w-full bg-muted rounded-full h-2 mb-2">
-                      <motion.div
-                        className={`h-full rounded-full bg-gradient-to-r ${skill.color}`}
-                        initial={{ width: 0 }}
-                        animate={inView ? { width: `${skill.level}%` } : {}}
-                        transition={{ duration: 1, delay: index * 0.1 + 0.5 }}
-                      />
-                    </div>
-                    
-                    <span className="text-sm text-muted-foreground">{skill.level}%</span>
-                  </motion.div>
-
-                  {/* Back of card */}
-                  <motion.div
-                    className="absolute inset-0 w-full h-full backface-hidden bg-gradient-to-br from-card/90 to-card/60 backdrop-blur-sm rounded-2xl border border-border/50 p-4 sm:p-6 flex flex-col justify-center"
-                    style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
-                  >
-                    <h3 className="text-base sm:text-lg font-bold mb-2 sm:mb-3 text-center">{skill.name}</h3>
-                    <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4 text-center line-clamp-3">
-                      {skill.description}
-                    </p>
-                    <div className="space-y-2">
-                      {skill.technologies.map((tech, i) => (
-                        <motion.div
-                          key={tech}
-                          className="text-xs bg-primary/20 rounded-full px-3 py-1 text-center"
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={isFlipped ? { opacity: 1, x: 0 } : {}}
-                          transition={{ duration: 0.3, delay: i * 0.1 }}
-                        >
-                          {tech}
-                        </motion.div>
-                      ))}
-                    </div>
-                  </motion.div>
-                </motion.div>
+                <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${skill.color} flex items-center justify-center mb-3`}>
+                  <Icon className="w-5 h-5 text-white" />
+                </div>
+                <h4 className="font-mono text-white font-medium">{skill.name}</h4>
+                <p className="text-xs text-slate-500 mt-1">{skill.description}</p>
               </motion.div>
             );
           })}
-        </div>
-
-        {/* Orbiting icons */}
-        <motion.div className="relative mt-16 flex justify-center">
-          <div className="relative w-32 h-32">
-            {[Code2, Database, Palette, Zap].map((Icon, index) => (
-              <motion.div
-                key={index}
-                className="absolute w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center"
-                animate={{
-                  rotate: [0, 360],
-                  x: [
-                    Math.cos((index * Math.PI) / 2) * 60,
-                    Math.cos((index * Math.PI) / 2 + Math.PI / 4) * 60,
-                    Math.cos((index * Math.PI) / 2 + Math.PI / 2) * 60,
-                    Math.cos((index * Math.PI) / 2 + (3 * Math.PI) / 4) * 60,
-                    Math.cos((index * Math.PI) / 2 + Math.PI) * 60,
-                  ],
-                  y: [
-                    Math.sin((index * Math.PI) / 2) * 60,
-                    Math.sin((index * Math.PI) / 2 + Math.PI / 4) * 60,
-                    Math.sin((index * Math.PI) / 2 + Math.PI / 2) * 60,
-                    Math.sin((index * Math.PI) / 2 + (3 * Math.PI) / 4) * 60,
-                    Math.sin((index * Math.PI) / 2 + Math.PI) * 60,
-                  ],
-                }}
-                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-              >
-                <Icon className="w-4 h-4" />
-              </motion.div>
-            ))}
-          </div>
         </motion.div>
 
         {/* Next button */}
@@ -242,11 +249,20 @@ export function SkillsSection({ onNext }: SkillsSectionProps) {
         >
           <motion.button
             onClick={onNext}
-            className="px-8 py-3 bg-primary text-primary-foreground rounded-full font-semibold"
-            whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(0,0,0,0.3)" }}
+            className="group px-6 py-3 bg-lime-500/20 border border-lime-500/50 rounded-lg font-mono text-lime-400
+                       hover:bg-lime-500/30 hover:border-lime-400 transition-all duration-300"
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Lihat Proyek Saya
+            <span className="flex items-center gap-2">
+              $ show --projects
+              <motion.span
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1, repeat: Infinity }}
+              >
+                →
+              </motion.span>
+            </span>
           </motion.button>
         </motion.div>
       </div>

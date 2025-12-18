@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -9,7 +8,6 @@ import { SkillsSection } from '@/components/sections/skills-section';
 import { ProjectsSection } from '@/components/sections/projects-section';
 import { ContactSection } from '@/components/sections/contact-section';
 import { Navigation } from '@/components/navigation';
-import { ThemeToggle } from '@/components/theme-toggle';
 
 const sections = [
   { id: 'hero', component: HeroSection },
@@ -41,7 +39,7 @@ export default function Home() {
   };
 
   const handleNavigateToContact = () => {
-    setCurrentSection(5); // Contact section index
+    setCurrentSection(4); // Contact section index (fixed from 5 to 4)
   };
 
   return (
@@ -53,14 +51,14 @@ export default function Home() {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-background"
           >
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1, rotate: 360 }}
               exit={{ scale: 0 }}
               transition={{ duration: 1, ease: "backOut" }}
-              className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin"
+              className="w-16 h-16 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin"
             />
           </motion.div>
         )}
@@ -72,8 +70,6 @@ export default function Home() {
             currentSection={currentSection} 
             onSectionChange={handleSectionChange}
           />
-          
-          <ThemeToggle />
 
           <motion.div
             initial={{ opacity: 0 }}

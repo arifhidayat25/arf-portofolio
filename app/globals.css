@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import Fira Code / JetBrains Mono for developer feel */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -18,57 +21,40 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
+    /* Code Universe - Dark Mode Only */
+    --background: 220 20% 6%;
+    --foreground: 210 20% 95%;
+    --card: 220 20% 10%;
+    --card-foreground: 210 20% 95%;
+    --popover: 220 20% 10%;
+    --popover-foreground: 210 20% 95%;
+    --primary: 186 100% 50%;
+    --primary-foreground: 220 20% 6%;
+    --secondary: 300 100% 60%;
+    --secondary-foreground: 220 20% 6%;
+    --muted: 220 15% 15%;
+    --muted-foreground: 210 10% 60%;
+    --accent: 150 100% 50%;
+    --accent-foreground: 220 20% 6%;
+    --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
-  }
-  .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 186 100% 50%;
+    
+    /* Code Universe Custom Colors */
+    --cyan: 186 100% 50%;
+    --magenta: 300 100% 60%;
+    --lime: 150 100% 50%;
+    --code-bg: 220 20% 8%;
+    --terminal-bg: 220 20% 4%;
+    
+    --chart-1: 186 100% 50%;
+    --chart-2: 300 100% 60%;
+    --chart-3: 150 100% 50%;
+    --chart-4: 45 100% 55%;
+    --chart-5: 270 100% 65%;
+    --radius: 0.75rem;
   }
 }
 
@@ -78,5 +64,155 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, sans-serif;
   }
+  code, pre, .font-mono {
+    font-family: 'Fira Code', 'JetBrains Mono', monospace;
+  }
+}
+
+@layer utilities {
+  /* Glow effects */
+  .glow-cyan {
+    box-shadow: 0 0 20px hsl(var(--cyan) / 0.5), 0 0 40px hsl(var(--cyan) / 0.3);
+  }
+  .glow-magenta {
+    box-shadow: 0 0 20px hsl(var(--magenta) / 0.5), 0 0 40px hsl(var(--magenta) / 0.3);
+  }
+  .glow-lime {
+    box-shadow: 0 0 20px hsl(var(--lime) / 0.5), 0 0 40px hsl(var(--lime) / 0.3);
+  }
+  
+  /* Text glow */
+  .text-glow-cyan {
+    text-shadow: 0 0 10px hsl(var(--cyan) / 0.8), 0 0 20px hsl(var(--cyan) / 0.5);
+  }
+  .text-glow-magenta {
+    text-shadow: 0 0 10px hsl(var(--magenta) / 0.8), 0 0 20px hsl(var(--magenta) / 0.5);
+  }
+  .text-glow-lime {
+    text-shadow: 0 0 10px hsl(var(--lime) / 0.8), 0 0 20px hsl(var(--lime) / 0.5);
+  }
+  
+  /* Gradient text - Crimson Glow */
+  .gradient-text-code {
+    @apply bg-gradient-to-r from-[#FCA5A5] via-[#F43F5E] to-[#DC2626] bg-clip-text text-transparent;
+  }
+  
+  /* Code syntax colors */
+  .syntax-keyword { @apply text-fuchsia-400; }
+  .syntax-string { @apply text-lime-400; }
+  .syntax-function { @apply text-cyan-400; }
+  .syntax-variable { @apply text-orange-400; }
+  .syntax-comment { @apply text-slate-500 italic; }
+  .syntax-number { @apply text-amber-400; }
+  
+  /* Terminal styling */
+  .terminal-window {
+    @apply bg-[hsl(var(--terminal-bg))] rounded-xl border border-slate-700/50 overflow-hidden;
+  }
+  .terminal-titlebar {
+    @apply flex items-center gap-2 px-4 py-3 bg-slate-800/80 border-b border-slate-700/50;
+  }
+  .terminal-dot {
+    @apply w-3 h-3 rounded-full;
+  }
+  .terminal-dot-red { @apply bg-red-500; }
+  .terminal-dot-yellow { @apply bg-yellow-500; }
+  .terminal-dot-green { @apply bg-green-500; }
+  
+  /* Card hover effect */
+  .card-hover-glow {
+    @apply transition-all duration-300;
+  }
+  .card-hover-glow:hover {
+    @apply -translate-y-1;
+    box-shadow: 0 10px 40px hsl(var(--cyan) / 0.2), 0 0 20px hsl(var(--cyan) / 0.1);
+  }
+  
+  /* 3D perspective for cards */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .transform-style-preserve-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-cyan-500/30 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-cyan-500/50;
+}
+
+/* Selection styling */
+::selection {
+  @apply bg-cyan-500/30 text-cyan-50;
+}
+
+/* Custom animations */
+@keyframes typing-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { 
+    opacity: 0.5; 
+    filter: blur(20px);
+  }
+  50% { 
+    opacity: 0.8; 
+    filter: blur(30px);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes code-rain {
+  0% { 
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% { 
+    opacity: 1; 
+  }
+  90% { 
+    opacity: 1; 
+  }
+  100% { 
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+.animate-typing-cursor {
+  animation: typing-cursor 1s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-code-rain {
+  animation: code-rain linear infinite;
 }
