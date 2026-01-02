@@ -109,6 +109,24 @@
       "live": "https://portofolio-gen.achmadarha.site",
       "stars": 10,
       "forks": 1
+    },
+    {
+      "id": 1767355399355,
+      "title": "Sistem Antrean Bengkel",
+      "description": "Sistem Antrean Bengkel Rajawali Motor",
+      "fullDescription": "istem Antrean Bengkel Rajawali Motor adalah aplikasi web modern yang dirancang untuk mendigitalisasi dan mengoptimalkan seluruh alur kerja operasional bengkel. Dibangun dengan tumpukan teknologi canggih, sistem ini menghadirkan fitur-fitur real-time untuk meningkatkan efisiensi, transparansi, dan pengalaman pelanggan.",
+      "image": "https://s0.wordpress.com/mshots/v1/https%3A%2F%2Fbengkel-rajawali.up.railway.app%2F?w=1280&h=720",
+      "technologies": [
+        "Laravel",
+        "Vite",
+        "Boostrap"
+      ],
+      "language": "PHP",
+      "languageColor": "#777BB4",
+      "github": "https://github.com/arifhidayat25/laravel-bengkel",
+      "live": "https://bengkel-rajawali.up.railway.app/",
+      "stars": 10,
+      "forks": 1
     }
   ]
 }
