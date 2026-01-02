@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Terminal, Github, Linkedin, Mail } from 'lucide-react';
 import { CodeBackground } from '@/components/code-background';
 import { TerminalWindow } from '@/components/terminal-window';
+import profileData from '@/data/profile.json';
 
 interface HeroSectionProps {
   onNext: () => void;
@@ -12,14 +13,17 @@ interface HeroSectionProps {
   onNavigateToContact?: () => void;
 }
 
-const roles = ['Full Stack Developer', 'UI/UX Enthusiast', 'Problem Solver', 'Tech Explorer'];
+const roles = profileData.roles;
+const fullName = profileData.name;
+const description = profileData.description;
+const techStack = profileData.techStack;
+const social = profileData.social;
 
 export function HeroSection({ onNext, onNavigateToProjects, onNavigateToContact }: HeroSectionProps) {
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const [displayedName, setDisplayedName] = useState('');
   const [isTypingComplete, setIsTypingComplete] = useState(false);
   const [showContent, setShowContent] = useState(false);
-  const fullName = 'ARFID';
 
   // Typing effect for name
   useEffect(() => {
@@ -162,7 +166,7 @@ export function HeroSection({ onNext, onNavigateToProjects, onNavigateToContact 
 
                   {/* Description as comment */}
                   <p className="text-slate-500 text-sm sm:text-base leading-relaxed max-w-2xl">
-                    {'/* Membangun pengalaman digital yang menyatukan kreativitas dengan teknologi terkini. Antusias menghadirkan antarmuka imersif dan menghidupkan ide lewat baris kode. */'}
+                    {`/* ${description} */`}
                   </p>
 
                   {/* Function call buttons */}
@@ -209,20 +213,20 @@ export function HeroSection({ onNext, onNavigateToProjects, onNavigateToContact 
                   {/* Social links */}
                   <div className="pt-6 flex gap-4">
                     {[
-                      { icon: Github, href: 'https://github.com/arifhidayat25', color: 'hover:text-white' },
-                      { icon: Linkedin, href: 'https://linkedin.com/in/arifhidayat25', color: 'hover:text-blue-400' },
-                      { icon: Mail, href: 'mailto:achmadarifh25@gmail.com', color: 'hover:text-cyan-400' },
-                    ].map((social, i) => (
+                      { icon: Github, href: social.github, color: 'hover:text-white' },
+                      { icon: Linkedin, href: social.linkedin, color: 'hover:text-blue-400' },
+                      { icon: Mail, href: `mailto:${social.email}`, color: 'hover:text-cyan-400' },
+                    ].map((item, i) => (
                       <motion.a
                         key={i}
-                        href={social.href}
+                        href={item.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`p-3 bg-slate-800/50 rounded-lg border border-slate-700/50 text-slate-400 ${social.color} transition-colors`}
+                        className={`p-3 bg-slate-800/50 rounded-lg border border-slate-700/50 text-slate-400 ${item.color} transition-colors`}
                         whileHover={{ scale: 1.1, y: -2 }}
                         whileTap={{ scale: 0.95 }}
                       >
-                        <social.icon className="w-5 h-5" />
+                        <item.icon className="w-5 h-5" />
                       </motion.a>
                     ))}
                   </div>
@@ -239,7 +243,7 @@ export function HeroSection({ onNext, onNavigateToProjects, onNavigateToContact 
           animate={showContent ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.5, duration: 0.5 }}
         >
-          {['React', 'Next.js', 'TypeScript', 'Node.js', 'Tailwind'].map((tech, i) => (
+          {techStack.map((tech, i) => (
             <motion.span
               key={tech}
               className="px-3 py-1.5 bg-slate-800/50 border border-slate-700/50 rounded-full text-xs font-mono text-slate-400"

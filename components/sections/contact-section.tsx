@@ -4,6 +4,9 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Send, Mail, Phone, MapPin, Github, Linkedin, MessageCircle, Sparkles, Bot } from 'lucide-react';
+import profileData from '@/data/profile.json';
+
+const social = profileData.social;
 
 interface ContactSectionProps {
   onNext: () => void;
@@ -189,9 +192,9 @@ export function ContactSection({ onNext }: ContactSectionProps) {
           {/* Contact Methods */}
           <div className="space-y-4 sm:space-y-5 mb-8">
             {[
-              { icon: Mail, label: 'Email', value: 'achmadarifh25@gmail.com', color: 'cyan' },
-              { icon: Phone, label: 'WhatsApp', value: '+62 895-0660-9757', color: 'fuchsia' },
-              { icon: MapPin, label: 'Lokasi', value: 'Malang, Indonesia', color: 'lime' },
+              { icon: Mail, label: 'Email', value: social.email, color: 'cyan' },
+              { icon: Phone, label: 'WhatsApp', value: social.whatsapp, color: 'fuchsia' },
+              { icon: MapPin, label: 'Lokasi', value: social.location, color: 'lime' },
             ].map((contact, index) => {
               const Icon = contact.icon;
               const colorMap = {
@@ -223,18 +226,18 @@ export function ContactSection({ onNext }: ContactSectionProps) {
           {/* Social Links */}
           <div className="flex gap-3">
             {[
-              { icon: Github, href: 'https://github.com/arifhidayat25' },
-              { icon: Linkedin, href: 'https://linkedin.com/in/arifhidayat25' },
-            ].map((social, i) => (
+              { icon: Github, href: social.github },
+              { icon: Linkedin, href: social.linkedin },
+            ].map((item, i) => (
               <motion.a
                 key={i}
-                href={social.href}
+                href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 bg-slate-800/50 rounded-xl border border-slate-700/50 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/50 transition-colors"
                 whileHover={{ scale: 1.1, y: -3 }}
               >
-                <social.icon className="w-5 h-5" />
+                <item.icon className="w-5 h-5" />
               </motion.a>
             ))}
           </div>

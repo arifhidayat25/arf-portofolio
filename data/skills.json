@@ -1,0 +1,70 @@
+{
+  "categories": [
+    {
+      "id": "frontend",
+      "name": "Frontend",
+      "icon": "Layout",
+      "skills": [
+        { "name": "React", "level": 95, "color": "#61DAFB" },
+        { "name": "Next.js", "level": 90, "color": "#000000" },
+        { "name": "TypeScript", "level": 88, "color": "#3178C6" },
+        { "name": "Tailwind CSS", "level": 92, "color": "#06B6D4" },
+        { "name": "Framer Motion", "level": 85, "color": "#FF0066" }
+      ]
+    },
+    {
+      "id": "backend",
+      "name": "Backend",
+      "icon": "Server",
+      "skills": [
+        { "name": "Node.js", "level": 85, "color": "#339933" },
+        { "name": "Python", "level": 75, "color": "#3776AB" },
+        { "name": "PostgreSQL", "level": 80, "color": "#4169E1" },
+        { "name": "MongoDB", "level": 78, "color": "#47A248" },
+        { "name": "REST API", "level": 88, "color": "#FF6B6B" }
+      ]
+    },
+    {
+      "id": "tools",
+      "name": "Tools",
+      "icon": "GitBranch",
+      "skills": [
+        { "name": "Git", "level": 90, "color": "#F05032" },
+        { "name": "Docker", "level": 65, "color": "#2496ED" },
+        { "name": "Figma", "level": 80, "color": "#F24E1E" },
+        { "name": "VS Code", "level": 95, "color": "#007ACC" },
+        { "name": "Linux", "level": 70, "color": "#FCC624" }
+      ]
+    }
+  ],
+  "overview": [
+    {
+      "icon": "Smartphone",
+      "name": "Mobile",
+      "level": 60,
+      "color": "from-orange-400 to-red-500",
+      "description": "React Native, Flutter"
+    },
+    {
+      "icon": "Globe",
+      "name": "DevOps",
+      "level": 65,
+      "color": "from-teal-400 to-cyan-500",
+      "description": "Docker, AWS, CI/CD"
+    },
+    {
+      "icon": "Brain",
+      "name": "AI/ML",
+      "level": 70,
+      "color": "from-fuchsia-400 to-pink-500",
+      "description": "OpenAI, TensorFlow"
+    },
+    {
+      "icon": "Zap",
+      "name": "Performance",
+      "level": 78,
+      "color": "from-amber-400 to-orange-500",
+      "description": "Optimization, Caching"
+    }
+  ]
+}

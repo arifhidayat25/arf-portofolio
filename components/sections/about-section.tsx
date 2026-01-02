@@ -2,54 +2,23 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { GitCommit, GitBranch, Code, Briefcase, GraduationCap, Rocket } from 'lucide-react';
+import { GitCommit, GitBranch, Code, Briefcase, GraduationCap, Rocket, Award, Star, Heart } from 'lucide-react';
+import profileData from '@/data/profile.json';
 
 interface AboutSectionProps {
   onNext: () => void;
 }
 
-const commits = [
-  {
-    hash: 'a1b2c3d',
-    date: '2025',
-    title: 'feat: Full Stack Developer',
-    description: 'Membangun aplikasi yang dapat diskalakan dengan teknologi modern',
-    icon: Rocket,
-    branch: 'main',
-    additions: 500,
-    deletions: 0,
-  },
-  {
-    hash: 'e4f5g6h',
-    date: '2025',
-    title: 'feat: Magang Pertama',
-    description: 'Frontend Developer di ITSK Dr Soepraoen',
-    icon: Briefcase,
-    branch: 'career',
-    additions: 350,
-    deletions: 50,
-  },
-  {
-    hash: 'i7j8k9l',
-    date: '2022',
-    title: 'feat: Mahasiswa Universitas',
-    description: 'Jurusan Sistem Informasi, fokus pada pengembangan web',
-    icon: GraduationCap,
-    branch: 'education',
-    additions: 200,
-    deletions: 0,
-  },
-  {
-    hash: 'm0n1o2p',
-    date: '2019',
-    title: 'init: Memulai Belajar Kode',
-    description: 'Memulai perjalanan dengan HTML, CSS, dan JavaScript',
-    icon: Code,
-    branch: 'origin',
-    additions: 100,
-    deletions: 0,
-  },
-];
+// Icon mapping
+const iconMap: Record<string, any> = {
+  Rocket, Briefcase, GraduationCap, Code, Award, Star, Heart
+};
+
+// Transform journey data from JSON
+const commits = profileData.journey.map(item => ({
+  ...item,
+  icon: iconMap[item.icon] || Rocket
+}));
 
 export function AboutSection({ onNext }: AboutSectionProps) {
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });

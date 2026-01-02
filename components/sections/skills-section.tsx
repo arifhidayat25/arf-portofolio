@@ -7,50 +7,24 @@ import {
   Code2, Database, Palette, Smartphone, 
   Globe, Zap, Brain, GitBranch, Server, Layout
 } from 'lucide-react';
+import skillsData from '@/data/skills.json';
 
 interface SkillsSectionProps {
   onNext: () => void;
 }
 
-const categories = [
-  {
-    id: 'frontend',
-    name: 'Frontend',
-    icon: Layout,
-    skills: [
-      { name: 'React', level: 95, color: '#61DAFB' },
-      { name: 'Next.js', level: 90, color: '#000000' },
-      { name: 'TypeScript', level: 88, color: '#3178C6' },
-      { name: 'Tailwind CSS', level: 92, color: '#06B6D4' },
-      { name: 'Framer Motion', level: 85, color: '#FF0066' },
-    ]
-  },
-  {
-    id: 'backend',
-    name: 'Backend',
-    icon: Server,
-    skills: [
-      { name: 'Node.js', level: 85, color: '#339933' },
-      { name: 'Python', level: 75, color: '#3776AB' },
-      { name: 'PostgreSQL', level: 80, color: '#4169E1' },
-      { name: 'MongoDB', level: 78, color: '#47A248' },
-      { name: 'REST API', level: 88, color: '#FF6B6B' },
-    ]
-  },
-  {
-    id: 'tools',
-    name: 'Tools',
-    icon: GitBranch,
-    skills: [
-      { name: 'Git', level: 90, color: '#F05032' },
-      { name: 'Docker', level: 65, color: '#2496ED' },
-      { name: 'Figma', level: 80, color: '#F24E1E' },
-      { name: 'VS Code', level: 95, color: '#007ACC' },
-      { name: 'Linux', level: 70, color: '#FCC624' },
-    ]
-  }
-];
+// Icon mapping
+const iconMap: Record<string, any> = {
+  Layout, Server, GitBranch, Code2, Database, Palette, Smartphone, Globe, Zap, Brain
+};
 
+// Transform JSON categories to include icon components
+const categories = skillsData.categories.map(cat => ({
+  ...cat,
+  icon: iconMap[cat.icon] || Layout
+}));
+
+// Transform overview data
 const allSkillsFlat = {
   frontend: [
     { icon: Code2, name: 'Frontend', level: 95, color: 'from-cyan-400 to-blue-500', description: 'React, Next.js, TypeScript' },
@@ -60,12 +34,10 @@ const allSkillsFlat = {
     { icon: Database, name: 'Backend', level: 85, color: 'from-green-400 to-emerald-500', description: 'Node.js, Python, APIs' },
     { icon: Server, name: 'Database', level: 82, color: 'from-violet-400 to-purple-500', description: 'PostgreSQL, MongoDB' },
   ],
-  other: [
-    { icon: Smartphone, name: 'Mobile', level: 60, color: 'from-orange-400 to-red-500', description: 'React Native, Flutter' },
-    { icon: Globe, name: 'DevOps', level: 65, color: 'from-teal-400 to-cyan-500', description: 'Docker, AWS, CI/CD' },
-    { icon: Brain, name: 'AI/ML', level: 70, color: 'from-fuchsia-400 to-pink-500', description: 'OpenAI, TensorFlow' },
-    { icon: Zap, name: 'Performance', level: 78, color: 'from-amber-400 to-orange-500', description: 'Optimization, Caching' },
-  ]
+  other: skillsData.overview.map(item => ({
+    ...item,
+    icon: iconMap[item.icon] || Zap
+  }))
 };
 
 export function SkillsSection({ onNext }: SkillsSectionProps) {
