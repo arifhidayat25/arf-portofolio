@@ -127,6 +127,20 @@
       "live": "https://bengkel-rajawali.up.railway.app/",
       "stars": 10,
       "forks": 1
+    },
+    {
+      "id": 1767924699739,
+      "title": "Undangan Pernikahan Digital",
+      "description": "Wedding",
+      "fullDescription": "Undangan Pernikahan Digital full fitur bisa custom",
+      "image": "https://s0.wordpress.com/mshots/v1/https%3A%2F%2Fwedding.achmadarha.site%2F?w=1280&h=720",
+      "technologies": [],
+      "language": "TypeScript",
+      "languageColor": "#3178C6",
+      "github": "",
+      "live": "https://wedding.achmadarha.site/",
+      "stars": 0,
+      "forks": 0
     }
   ]
 }
