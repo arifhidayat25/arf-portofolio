@@ -289,7 +289,10 @@ export function ProjectsSection({ onNext }: ProjectsSectionProps) {
                   className="w-full h-64 object-cover rounded-lg mb-6"
                 />
                 
-                <p className="text-slate-300 mb-6">{selectedProject.fullDescription}</p>
+                <div 
+                  className="text-slate-300 mb-6 space-y-2 [&_a]:text-cyan-400 [&_a]:underline hover:[&_a]:text-cyan-300"
+                  dangerouslySetInnerHTML={{ __html: selectedProject.fullDescription.replace(/\n/g, '<br/>') }}
+                />
 
                 <div className="flex flex-wrap gap-2 mb-6">
                   {selectedProject.technologies.map((tech) => (
