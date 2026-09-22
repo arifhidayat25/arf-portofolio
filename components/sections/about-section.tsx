@@ -86,7 +86,7 @@ export function AboutSection({ onNext }: AboutSectionProps) {
                     className="absolute left-4 sm:left-6 w-4 h-4 bg-slate-900 border-2 border-cyan-500 rounded-full"
                     whileHover={{ scale: 1.3, borderColor: 'hsl(var(--lime))' }}
                   >
-                    <div className="absolute inset-0 bg-cyan-500/30 rounded-full animate-ping" />
+                    <div className="absolute inset-0 bg-cyan-500/20 rounded-full" />
                   </motion.div>
 
                   {/* Commit Card */}

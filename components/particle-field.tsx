@@ -1,67 +1,82 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useMemo } from 'react';
+
+// Particles generated once at module level using seeded values — no random on render
+function seededRandom(seed: number) {
+  const x = Math.sin(seed + 1) * 10000;
+  return x - Math.floor(x);
+}
 
 export function ParticleField() {
-  const particles = Array.from({ length: 50 }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 4 + 1,
-    duration: Math.random() * 20 + 10,
-    delay: Math.random() * 5,
-  }));
+  const particles = useMemo(() =>
+    Array.from({ length: 30 }, (_, i) => ({
+      id: i,
+      x: seededRandom(i * 3) * 100,
+      y: seededRandom(i * 3 + 1) * 100,
+      size: seededRandom(i * 3 + 2) * 3 + 1,
+      duration: seededRandom(i * 7) * 15 + 10,
+      delay: seededRandom(i * 11) * 5,
+      floatX: (Math.sin(i) * 40).toFixed(1),
+    })),
+  []);
+
+  const shootingStars = useMemo(() =>
+    Array.from({ length: 3 }, (_, i) => ({
+      id: i,
+      x: seededRandom(i * 17 + 100) * 100,
+      y: seededRandom(i * 13 + 100) * 50,
+      delay: i * 4,
+    })),
+  []);
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {particles.map((particle) => (
-        <motion.div
-          key={particle.id}
+      {particles.map((p) => (
+        <div
+          key={p.id}
           className="absolute bg-white/20 rounded-full"
           style={{
-            left: `${particle.x}%`,
-            top: `${particle.y}%`,
-            width: particle.size,
-            height: particle.size,
-          }}
-          animate={{
-            y: [0, -100, 0],
-            x: [0, Math.sin(particle.id) * 50, 0],
-            opacity: [0, 1, 0],
-            scale: [0, 1, 0],
-          }}
-          transition={{
-            duration: particle.duration,
-            repeat: Infinity,
-            delay: particle.delay,
-            ease: "easeInOut",
+            left: `${p.x}%`,
+            top: `${p.y}%`,
+            width: p.size,
+            height: p.size,
+            animation: `particle-float ${p.duration}s ${p.delay}s ease-in-out infinite`,
+            // Inline var for CSS animation x movement
+            ['--float-x' as string]: `${p.floatX}px`,
+            willChange: 'transform, opacity',
           }}
         />
       ))}
-      
+
       {/* Shooting stars */}
-      {Array.from({ length: 3 }).map((_, i) => (
-        <motion.div
-          key={`star-${i}`}
+      {shootingStars.map((s) => (
+        <div
+          key={`star-${s.id}`}
           className="absolute w-1 h-1 bg-yellow-400 rounded-full"
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 50}%`,
-          }}
-          animate={{
-            x: [0, 200],
-            y: [0, 100],
-            opacity: [0, 1, 0],
-            scale: [0, 1, 0],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            delay: i * 4,
-            ease: "easeOut",
+            left: `${s.x}%`,
+            top: `${s.y}%`,
+            animation: `shooting-star 3s ${s.delay}s ease-out infinite`,
+            willChange: 'transform, opacity',
           }}
         />
       ))}
+
+      <style>{`
+        @keyframes particle-float {
+          0%   { transform: translate(0, 0) scale(0); opacity: 0; }
+          20%  { opacity: 1; scale: 1; }
+          50%  { transform: translate(var(--float-x, 30px), -60px) scale(1); opacity: 0.8; }
+          80%  { opacity: 0.3; }
+          100% { transform: translate(0, -100px) scale(0); opacity: 0; }
+        }
+        @keyframes shooting-star {
+          0%   { transform: translate(0, 0) scale(0); opacity: 0; }
+          10%  { opacity: 1; transform: scale(1); }
+          100% { transform: translate(200px, 100px) scale(0); opacity: 0; }
+        }
+      `}</style>
     </div>
   );
 }

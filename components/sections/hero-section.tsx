@@ -72,7 +72,7 @@ export function HeroSection({ onNext, onNavigateToProjects, onNavigateToContact 
   return (
     <div id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Code Rain Background */}
-      <CodeBackground density={25} speed={20} opacity={0.1} />
+      <CodeBackground density={10} speed={20} opacity={0.1} />
       
       {/* Ambient Glow Effects */}
       <div className="absolute inset-0 pointer-events-none">
